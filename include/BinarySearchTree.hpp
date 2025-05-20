@@ -4,11 +4,14 @@ struct TreeNode {
   int key;
   TreeNode* left;
   TreeNode* right;
+
+  TreeNode(int k) : key(k), left(nullptr), right(nullptr) {}
 };
 
 class BST {
  private:
   // Helper Function
+  void printTree(TreeNode* root);
   void del(TreeNode*& r, TreeNode*& q);
   TreeNode* newNode(int key);
   void LNR(TreeNode* root);
@@ -37,6 +40,7 @@ class BST {
 
   // Queries
   TreeNode* search(int key);
+  void printTree();
 
   // Insertion and Deletion
   virtual void insert(int key);

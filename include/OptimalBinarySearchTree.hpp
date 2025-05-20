@@ -1,7 +1,6 @@
 #pragma once
 
 #include <functional>
-#include <iostream>
 #include <vector>
 
 #include "BinarySearchTree.hpp"
@@ -31,32 +30,6 @@ class OBST : public BST {
        const std::vector<int>& failureWeight,
        const std::function<void()>& algo);
   virtual ~OBST();
-  void getExpectedSearchCost() const {
-    for (int i = 1; i <= nTreeNode + 1; ++i) {
-      for (int j = 0; j <= nTreeNode; ++j) {
-        std::cout << expectedSearchCost[i][j] << " ";
-      }
-      std::cout << std::endl;
-    }
-  }
-
-  void getTotalProb() const {
-    for (int i = 1; i <= nTreeNode + 1; ++i) {
-      for (int j = 0; j <= nTreeNode; ++j) {
-        std::cout << totalProbaility[i][j] << " ";
-      }
-      std::cout << std::endl;
-    }
-  }
-
-  void getRoot() const {
-    for (int i = 1; i <= nTreeNode; ++i) {
-      for (int j = 1; j <= nTreeNode; ++j) {
-        std::cout << sufficientRoot[i][j] << " ";
-      }
-      std::cout << std::endl;
-    }
-  }
 
   // Build function
   void knuthAlgo();
@@ -64,6 +37,9 @@ class OBST : public BST {
   void tabulation();
   TreeNode* buildSubtree(int i, int j);
   TreeNode* buildTree();
+
+  // Queries
+  double getTreeSearchCost() const;
 
   // Insertion and Deletion
   void insert(int key) override;

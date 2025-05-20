@@ -1,10 +1,54 @@
 #include "BinarySearchTree.hpp"
 
+#include <cmath>
 #include <cstddef>
+#include <iomanip>
 #include <iostream>
 #include <queue>
 
 // Helper Function
+void BST::printTree(TreeNode* root) {
+  if (!root) {
+    std::cout << "Empty tree" << std::endl;
+    return;
+  }
+
+  std::queue<TreeNode*> q;
+  q.push(root);
+  int level = 0;
+
+  while (!q.empty()) {
+    int levelSize = q.size();
+    std::cout << std::left << std::setw(6) << "Level " << level << ": ";
+
+    for (int i = 0; i < levelSize; i++) {
+      TreeNode* node = q.front();
+      q.pop();
+
+      if (node) {
+        std::cout << std::setw(5) << std::right << node->key;
+        q.push(node->left);
+        q.push(node->right);
+      } else {
+        std::cout << std::setw(5) << std::right << "null";
+      }
+    }
+    std::cout << std::endl;
+    level++;
+
+    bool hasNonNull = false;
+    std::queue<TreeNode*> temp = q;
+    while (!temp.empty()) {
+      if (temp.front() != nullptr) {
+        hasNonNull = true;
+        break;
+      }
+      temp.pop();
+    }
+    if (!hasNonNull) break;
+  }
+}
+
 void BST::del(TreeNode*& r, TreeNode*& q) {
   if (r->right)
     del(r->right, q);
@@ -15,7 +59,7 @@ void BST::del(TreeNode*& r, TreeNode*& q) {
   }
 }
 
-TreeNode* BST::newNode(int key) { return new TreeNode({key, NULL, NULL}); }
+TreeNode* BST::newNode(int key) { return new TreeNode(key); }
 
 void BST::LNR(TreeNode* root) {
   if (root) {
@@ -114,6 +158,7 @@ void BST::NLR() { this->NLR(this->root); }
 void BST::levelOrder() { this->levelOrder(this->root); }
 
 TreeNode* BST::search(int key) { return this->search(this->root, key); }
+void BST::printTree() { this->printTree(this->root); }
 
 void BST::insert(int key) { this->insert(this->root, key); }
 void BST::remove(int key) { this->remove(this->root, key); }

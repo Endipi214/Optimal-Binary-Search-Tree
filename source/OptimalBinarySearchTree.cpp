@@ -62,6 +62,30 @@ double OBST::memoizationHelper(int i, int j) {
   return this->expectedSearchCost[i][j];
 }
 
+// Constructor and Destructor
+OBST::OBST(const std::vector<int>& key, const std::vector<int>& successWeight,
+           const std::vector<int>& failureWeight,
+           const std::function<void()>& algo)
+    : key(key), nTreeNode(key.size()) {
+  this->normalizeWeight(successWeight, failureWeight);
+  this->initMatrices(algo);
+}
+OBST::~OBST() {}
+
+// Queries
+double OBST::getTreeSearchCost() const {
+  return this->expectedSearchCost[1][nTreeNode];
+}
+
+// Override function
+void OBST::insert(int key) {
+  std::cout << "Insert is not allow in OptimalBST!" << std::endl;
+}
+void OBST::remove(int key) {
+  std::cout << "Remove is not allow in OptimalBST!" << std::endl;
+}
+
+// Build Function
 void OBST::memoization() {
   this->preCalculateTotalProb();
   this->memoizationHelper(1, this->nTreeNode);
@@ -143,21 +167,11 @@ void OBST::initMatrices(const std::function<void()>& algo) {
   algo();
 }
 
-// Constructor and Destructor
-OBST::OBST(const std::vector<int>& key, const std::vector<int>& successWeight,
-           const std::vector<int>& failureWeight,
-           const std::function<void()>& algo)
-    : key(key), nTreeNode(key.size()) {
-  this->normalizeWeight(successWeight, failureWeight);
-  this->initMatrices(algo);
-}
-OBST::~OBST() {}
-
 TreeNode* OBST::buildSubtree(int i, int j) {
   if (i > j) return nullptr;
 
   int r = this->sufficientRoot[i][j];
-  TreeNode* node = new TreeNode({this->key[r - 1], NULL, NULL});
+  TreeNode* node = new TreeNode(this->key[r - 1]);
 
   node->left = buildSubtree(i, r - 1);
   node->right = buildSubtree(r + 1, j);
@@ -168,12 +182,4 @@ TreeNode* OBST::buildSubtree(int i, int j) {
 TreeNode* OBST::buildTree() {
   this->root = buildSubtree(1, this->nTreeNode);
   return this->root;
-}
-
-// Override function
-void OBST::insert(int key) {
-  std::cout << "Insert is not allow in OptimalBST!" << std::endl;
-}
-void OBST::remove(int key) {
-  std::cout << "Remove is not allow in OptimalBST!" << std::endl;
 }
