@@ -29,7 +29,9 @@ std::pair<double, OBST> benchmarking::calExecutionTime(
   return {duration.count(), std::move(tree)};
 }
 
-void benchmarking::benchmark(int times, int inputSizes) {
+void benchmarking::benchmark(int times, int inputSizes,
+                             std::vector<int> successWeight,
+                             std::vector<int> failureWeight) {
   bool printTree = inputSizes <= 20;
   std::cout << "===== OBST Benchmarking =====\n";
   std::cout << "Input size: " << inputSizes << ", Repetitions: " << times
@@ -45,14 +47,15 @@ void benchmarking::benchmark(int times, int inputSizes) {
     std::cout << "----- Test Run " << (i + 1) << " -----\n";
 
     std::vector<int> key;
-    std::vector<int> successWeight;
-    std::vector<int> failureWeight;
 
     for (int j = 0; j < inputSizes; ++j) {
       key.push_back((j + 1) * 10);
     }
-    successWeight = vectorGenerator(inputSizes);
-    failureWeight = vectorGenerator(inputSizes + 1);
+
+    if (successWeight.empty() && failureWeight.empty()) {
+      successWeight = vectorGenerator(inputSizes);
+      failureWeight = vectorGenerator(inputSizes + 1);
+    }
 
     std::cout << std::left << std::setw(17) << "Input Keys";
     std::cout << "[";
@@ -125,6 +128,9 @@ void benchmarking::benchmark(int times, int inputSizes) {
     std::cout << "Knuth Algorithm tree cost: " << knuthTree.getTreeSearchCost()
               << "\n";
     std::cout << "Knuth Algorithm time: " << knuthTime << " seconds\n";
+    key.clear();
+    successWeight.clear();
+    failureWeight.clear();
     std::cout << "----------------------------\n\n";
   }
 }

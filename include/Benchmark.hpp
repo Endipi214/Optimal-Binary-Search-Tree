@@ -10,5 +10,6 @@ std::pair<double, OBST> calExecutionTime(
     const std::vector<int>& key, const std::vector<int>& successWeight,
     const std::vector<int>& failureWeight, const std::string& algoName,
     const std::function<void(OBST&)>& algo);
-void benchmark(int times, int inputSizes);
+void benchmark(int times, int inputSizes, std::vector<int> successWeight = {},
+               std::vector<int> failureWeight = {});
 }  // namespace benchmarking
