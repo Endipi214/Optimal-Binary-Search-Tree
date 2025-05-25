@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 #include "Benchmark.hpp"
 
@@ -40,6 +41,5 @@ int main() {
   } else {
     std::cout << "Invalid option. Exiting.\n";
   }
-
   return 0;
 }
