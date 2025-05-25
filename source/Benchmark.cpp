@@ -93,11 +93,9 @@ void benchmarking::benchmark(int times, int inputSizes,
                 << std::endl
                 << std::endl;
 
-    auto memoResult =
+    auto [memoTime, memoTree] =
         calExecutionTime(key, successWeight, failureWeight, "Memoization",
                          [](OBST& tree) { tree.memoization(); });
-    auto memoTime = memoResult.first;
-    OBST memoTree = std::move(memoResult.second);
     memoTree.buildTree();
     if (printTree) {
       std::cout << "[Memoization Tree]\n";
@@ -107,11 +105,9 @@ void benchmarking::benchmark(int times, int inputSizes,
               << "\n";
     std::cout << "Memoization time: " << memoTime << " seconds\n\n";
 
-    auto tabResult =
+    auto [tabTime, tabTree] =
         calExecutionTime(key, successWeight, failureWeight, "Tabulation",
                          [](OBST& tree) { tree.tabulation(); });
-    auto tabTime = tabResult.first;
-    OBST tabTree = std::move(tabResult.second);
     tabTree.buildTree();
     if (printTree) {
       std::cout << "[Tabulation Tree]\n";
@@ -121,11 +117,9 @@ void benchmarking::benchmark(int times, int inputSizes,
               << "\n";
     std::cout << "Tabulation time: " << tabTime << " seconds\n\n";
 
-    auto knuthResult =
+    auto [knuthTime, knuthTree] =
         calExecutionTime(key, successWeight, failureWeight, "Knuth Algorithm",
                          [](OBST& tree) { tree.knuthAlgo(); });
-    auto knuthTime = knuthResult.first;
-    OBST knuthTree = std::move(knuthResult.second);
     knuthTree.buildTree();
     if (printTree) {
       std::cout << "[Knuth Algorithm Tree]\n";
