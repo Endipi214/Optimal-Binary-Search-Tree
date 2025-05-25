@@ -16,5 +16,6 @@ file(GLOB HEADER_FILES
 )
 
 add_executable(main ${SRC_FILES} ${HEADER_FILES})
+target_compile_features(main PRIVATE cxx_std_17)
 
 target_include_directories(main PRIVATE ${CMAKE_SOURCE_DIR}/include)
