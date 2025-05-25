@@ -61,7 +61,7 @@ These integer arrays are automatically normalized into statistical probability d
 ```bash
 mkdir build
 cd build
-cmake -G "MinGW Makefiles" -S ..
+cmake -S ..
 ```
 
 3. **Compile the project:**
@@ -78,7 +78,7 @@ cmake --build .
 You can also use make directly after cmake configuration:
 ```bash
 mkdir build
-cmake -G "MinGW Makefiles" -S . -B build
+cmake -S . -B build
 cmake --build build
 .\build\bin\main.exe
 ```
